@@ -1,0 +1,21 @@
+SMART RENTAL SYSTEM (SRS) - CORK THEME + REAL QR STATION ACCESS
+
+NEW INSTALL (WINDOWS)
+1. Install Python 3.11+ from python.org; enable Add Python to PATH.
+2. Open SRS_Web_Application folder.
+3. Double click setup_windows.bat.
+4. Double click create_operator_windows.bat, set username and 12+ character password.
+5. Double click download_photos_windows.bat (internet needed to cache real product photos).
+6. Double click start_windows.bat.
+7. Open http://127.0.0.1:8000/operator/login and sign in.
+8. Open the "Station QR Code" link on the left. Print or show QR.
+9. For scanning QR with another phone, close server and use start_lan_windows.bat instead.
+
+EXISTING INSTALLATION
+Keep your old database and operator login. Carefully follow UPDATE_EXISTING_INSTALLATION.md.
+
+FINAL STUDENT FLOW
+Scan station QR -> register -> physical ID verified by operator -> select item/duration
+-> choose cash/JazzCash/EasyPaisa -> operator confirms payment -> collect -> return.
+
+NO LIVE WALLET PAYMENT GATEWAY OR AUTOMATIC LOCKER DISPENSING IS CLAIMED.

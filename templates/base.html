@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#172747">
+  <meta name="description" content="Smart Rental System — campus essentials, rented simply.">
+  <title>{% block title %}Smart Rental System{% endblock %} | SRS</title>
+  <link rel="stylesheet" href="/static/css/style.css?v=option2">
+  <link rel="stylesheet" href="/static/css/option2.css?v=1">
+  <link rel="stylesheet" href="/static/css/cork.css?v=3">
+  <script src="/static/js/app.js?v=cork" defer></script>
+</head>
+<body class="{% if operator %}operator-mode{% else %}student-mode{% endif %}">
+{% if operator %}
+  <aside class="sidebar" aria-label="Operator navigation">
+    <a href="/operator" class="brand brand-side" aria-label="SRS operator dashboard">
+      <span class="brand-icon"><img src="/static/img/srs-mark.svg" alt=""></span>
+      <span><b>SRS</b><small>Smart Rental System</small></span>
+    </a>
+    <p class="nav-caption">OPERATOR WORKSPACE</p>
+    <nav class="side-nav" aria-label="Operator sections">
+      <a href="/operator" class="{% if page=='dashboard' %}selected{% endif %}" {% if page=='dashboard' %}aria-current="page"{% endif %}><svg class="nav-icon"><use href="/static/img/icons.svg#dashboard"/></svg><span>Dashboard</span></a>
+      <a href="/operator/station-qr" class="{% if page=='station_qr' %}selected{% endif %}"><svg class="nav-icon"><use href="/static/img/icons.svg#inventory"/></svg><span>Station QR Code</span></a>
+      <a href="/operator/access" class="{% if page=='access' %}selected{% endif %}" {% if page=='access' %}aria-current="page"{% endif %}><svg class="nav-icon"><use href="/static/img/icons.svg#shield"/></svg><span>Operator Logins</span></a>
+      <a href="/operator/students" class="{% if page=='students' %}selected{% endif %}" {% if page=='students' %}aria-current="page"{% endif %}><svg class="nav-icon"><use href="/static/img/icons.svg#users"/></svg><span>Students</span></a>
+      <a href="/operator/inventory" class="{% if page=='inventory' %}selected{% endif %}" {% if page=='inventory' %}aria-current="page"{% endif %}><svg class="nav-icon"><use href="/static/img/icons.svg#inventory"/></svg><span>Inventory</span></a>
+      <a href="/operator/rentals" class="{% if page=='rentals' %}selected{% endif %}" {% if page=='rentals' %}aria-current="page"{% endif %}><svg class="nav-icon"><use href="/static/img/icons.svg#rentals"/></svg><span>Rentals / Returns</span></a>
+      <a href="/operator/reminders" class="{% if page=='reminders' %}selected{% endif %}" {% if page=='reminders' %}aria-current="page"{% endif %}><svg class="nav-icon"><use href="/static/img/icons.svg#clock"/></svg><span>Reminders</span></a>
+      <a href="/operator/finance" class="{% if page=='finance' %}selected{% endif %}" {% if page=='finance' %}aria-current="page"{% endif %}><svg class="nav-icon"><use href="/static/img/icons.svg#wallet"/></svg><span>Finance / Deposits</span></a>
+      <a href="/operator/checks" class="{% if page=='checks' %}selected{% endif %}" {% if page=='checks' %}aria-current="page"{% endif %}><svg class="nav-icon"><use href="/static/img/icons.svg#checklist"/></svg><span>Daily Checks</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="operator-chip"><span class="operator-chip-dot"></span> Authorized operator</div>
+      <form action="/operator/logout" method="post">
+        <input type="hidden" name="csrf" value="{{ csrf }}">
+        <button type="submit" class="logout-btn"><svg class="nav-icon"><use href="/static/img/icons.svg#logout"/></svg> Sign out</button>
+      </form>
+    </div>
+  </aside>
+  <main class="operator-main" id="main-content">
+    <header class="topbar">
+      <div class="topbar-title"><span class="eyebrow">SMART RENTAL SYSTEM / OPERATOR</span><h1>{% block heading %}Dashboard{% endblock %}</h1></div>
+      <div class="top-profile"><span class="avatar-circle"><svg class="nav-icon"><use href="/static/img/icons.svg#user"/></svg></span><span>{{ op.username if op is defined else 'SRS' }}<small>Authorized operator</small></span></div>
+    </header>
+    <div class="main-body">
+{% else %}
+  <header class="public-header">
+    <a href="/" class="brand" aria-label="SRS home"><span class="brand-icon"><img src="/static/img/srs-mark.svg" alt=""></span><span><b>SRS</b><small>Smart Rental System</small></span></a>
+    <div class="header-right"><span class="tagline">Borrow Smart. Study Better.</span><a class="operator-link" href="/operator/login">Operator access <span aria-hidden="true">↗</span></a></div>
+  </header>
+  {% if current_student and request.url.path != '/' and request.url.path != '/operator/login' %}
+  <aside class="student-sidebar">
+    <div class="student-sidebar-title">STUDENT RENTAL</div>
+    <a href="/verification" class="student-nav-link">◈ &nbsp; ID Verification</a>
+    <a href="/items" class="student-nav-link">▦ &nbsp; Rental Items</a>
+    {% if request.session.get('last_rental') %}<a href="/rental/{{ request.session.get('last_rental') }}" class="student-nav-link">◷ &nbsp; My Rental</a>{% endif %}
+    <div class="student-sidebar-bottom">Borrow Smart.<br>Study Better.</div>
+  </aside>
+  {% endif %}
+  <main class="public-main {% if current_student and request.url.path != '/' and request.url.path != '/operator/login' %}student-workspace{% endif %}" id="main-content">
+{% endif %}
+{% if flash %}<div class="alert {{ flash[1] }}" role="status">{{ flash[0] }}</div>{% endif %}
+{% block content %}{% endblock %}
+{% if operator %}</div>{% endif %}
+  </main>
+{% if not operator %}<footer class="footer">SRS • Borrow Smart. Study Better. &nbsp; | &nbsp; On-campus collection and return</footer>{% endif %}
+</body>
+</html>

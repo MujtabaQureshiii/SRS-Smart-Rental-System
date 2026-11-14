@@ -1,0 +1,16 @@
+# Secrets and databases: never commit
+.env
+.env.*
+!.env.example
+.srs_secret
+.srs_station_token
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.DS_Store

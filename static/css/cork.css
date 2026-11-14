@@ -1,0 +1,110 @@
+/* SRS Cork-inspired original presentation layer. Business logic remains in app.py. */
+:root{--navy:#172747;--blue:#273c66;--ink:#25304e;--gold:#edbb49;--gold-soft:#fff4d4;--bg:#f3f4fb;--muted:#78849d;--line:#e4e7f3;--shadow:0 9px 28px rgba(28,42,88,.075);--purple:#7357d5;--surface:#fff}
+html{background:#f3f4fb}body{background:radial-gradient(ellipse at 95% 6%,#e6e3f9 0,transparent 37%),linear-gradient(125deg,#f3f5fc,#f5f6fb 65%,#eef0fa);color:var(--ink)}
+a{color:#6b54c3}a:hover{color:#4f399e}h1,h2,h3{color:#273352}p{color:#74809b}em{color:#f2bb49}
+.public-header{background:rgba(255,255,255,.97);border-color:#e5e8f2;height:79px;box-shadow:0 3px 20px #263c7810}
+.public-main{max-width:1400px;padding-bottom:62px}
+.footer{background:#f3f4fb;color:#8892a8;border-color:#e4e7f2}
+.operator-link{background:#f8f7ff;border:1px solid #e2def5;color:#6550b4}
+.operator-link:hover{background:#efebff;color:#463292}
+.btn{border-radius:12px;font-weight:700;transition:transform .22s ease,box-shadow .22s ease,filter .22s ease}
+.btn-primary{background:linear-gradient(108deg,#7256d1,#8668e8);box-shadow:0 4px 0 #ebbe52,0 8px 18px #6954c52c;color:white}
+.btn-primary:hover:not(:disabled){background:linear-gradient(115deg,#6347ba,#7e60d6);box-shadow:0 4px 0 #ebbe52,0 11px 25px #6954c53a;color:white}
+.btn-secondary,.btn-ghost{background:#f4f2ff;border:1px solid #e4dffa;color:#6956b7}
+.btn-secondary:hover{background:#eae5ff}
+.white-card,.form-shell,.stat-card{background:#fff;border:1px solid #e9eaf3;border-radius:18px;box-shadow:var(--shadow)}
+input,select,textarea{background:#f7f8fe;border:1px solid #dce2f0;color:#293857;border-radius:11px;min-height:43px}
+input:focus,select:focus,textarea:focus{border-color:#9a86e8;box-shadow:0 0 0 3px #a595e42a}
+.eyebrow{color:#8b7bb4}.eyebrow.gold{color:#f2bd50}
+.sidebar{background:linear-gradient(165deg,#192746,#172540 78%,#121d35);border:0;box-shadow:8px 0 30px #1a274521}
+.sidebar::after,.student-sidebar::after{content:"";position:absolute;bottom:5%;left:-30%;width:150%;height:180px;border:1px solid #7b68c934;border-radius:50%;transform:rotate(-20deg);pointer-events:none}
+.sidebar .brand{color:white}.sidebar .brand small{color:#aab6d1}
+.side-nav a{border-radius:12px;color:#bac6e1;transition:.2s}
+.side-nav a:hover,.side-nav a.selected{background:linear-gradient(105deg,#7557d9,#5947b6);color:white;box-shadow:0 7px 18px #5d49bf32}
+.sidebar .nav-caption{color:#788bb1}
+.operator-main{background:transparent}
+.topbar{background:#fff;border-bottom:1px solid #e7eaf4;box-shadow:0 1px 14px #243b7611}
+.topbar h1{color:#273554}
+.main-body{background:transparent}
+.stat-card{border-radius:17px;transition:transform .25s}
+.stat-card:hover{transform:translateY(-3px)}
+.stat-card::after{background:linear-gradient(90deg,#7660d7,#c5b2ff)}
+.card-head h2,.section-intro h2{color:#273554}
+.table-wrap{border-color:#edf0f6}thead{background:#f7f7fd}th{color:#596681}td{border-color:#edf0f8}
+.status-active{background:#e0f6ea!important;color:#26805c!important}
+.status-pending{background:#fff3dd!important;color:#a06f18!important}
+.notice{background:#f4f1ff;border:1px solid #e4dafa;color:#5f5886}
+.rise{animation:corkRise .52s cubic-bezier(.2,.75,.3,1) both}
+@keyframes corkRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* Operator login: two clean branded panels */
+.login-layout{min-height:calc(100vh - 166px);gap:38px;grid-template-columns:1.08fr .92fr;padding:52px 0;max-width:1250px;margin:auto}
+.login-visual{min-height:550px;border-radius:26px;box-shadow:0 24px 48px #14264125;padding:46px;background:linear-gradient(135deg,#132b52,#164674 65%,#2e5f8e)}
+.login-visual::before{content:"";position:absolute;inset:auto 0 0;height:45%;opacity:.43;background:url('/static/img/campus-outline.svg') center bottom/contain no-repeat;pointer-events:none}
+.login-visual::after{content:"";position:absolute;top:-140px;right:-115px;width:370px;height:370px;border:2px solid #e9bb516e;border-radius:50%;pointer-events:none}
+.login-visual h1{font-size:clamp(2.2rem,3.3vw,3.45rem);color:#fff}
+.login-visual p{color:#d6e1f3}
+.login-panel{border-radius:25px;padding:48px;background:#fff;box-shadow:0 20px 50px #252d6931;border:1px solid #e5eaf4}
+.login-panel h2{color:#273554;font-size:2.05rem}
+.login-panel .login-symbol{background:linear-gradient(140deg,#fff3cf,#f3c75c);color:#3b2e54}
+.login-display .display-center{border-radius:23px}
+/* Student panel: Cork sidebar layout appears only after QR registration */
+.student-sidebar{position:fixed;top:79px;left:0;bottom:0;width:222px;padding:29px 15px;background:linear-gradient(165deg,#192746,#142139);color:#fff;z-index:12;box-shadow:8px 0 28px #18274619;overflow:hidden}
+.student-sidebar-title{font-size:.65rem;letter-spacing:.16em;color:#8fa1c7;font-weight:800;padding:5px 13px 19px}
+.student-nav-link{display:block;padding:13px 14px;margin:5px 0;color:#d0d7eb;font-size:.86rem;font-weight:680;border-radius:11px;transition:background .2s,transform .2s}
+.student-nav-link:hover{color:white;background:#6d56c8;transform:translateX(3px)}
+.student-sidebar-bottom{position:absolute;bottom:28px;left:26px;color:#8d9ab5;font-size:.77rem;line-height:1.7}
+.public-main.student-workspace{margin-left:222px;max-width:none;padding:0 4.5% 65px}
+.cork-student-hero,.cork-welcome-hero{color:white;background:radial-gradient(circle at 83% 15%,#8169d4 0,transparent 50%),linear-gradient(120deg,#253968,#25356d 70%,#6453b8);border-radius:22px;box-shadow:0 16px 36px #33377b24;overflow:hidden}
+.cork-student-hero{margin-top:35px;padding:37px 43px;display:flex;justify-content:space-between;align-items:center;gap:25px}
+.cork-student-hero h1{color:white;font-size:clamp(1.5rem,3vw,2.3rem);margin:12px 0}
+.cork-student-hero p,.cork-welcome-hero p{color:#e6e4fb}
+.cork-mini{font-size:.7rem;letter-spacing:.17em;color:#f3c956;font-weight:850}
+.cork-hero-label{font-size:1.5rem;font-weight:850;color:#f4cf77;opacity:.78;line-height:1.3;text-align:right}
+.hello-bar{margin-top:20px;background:#fff;border-color:#e9eaf4;box-shadow:var(--shadow);align-items:center;flex-wrap:wrap}
+.hello-bar .status{margin-left:0}
+.cork-steps{display:flex;flex-wrap:wrap;gap:10px;margin:19px 0 27px}
+.cork-steps span{background:#fff;border:1px solid #e8eaf4;border-radius:12px;padding:9px 12px;font-size:.77rem;color:#8791a6}
+.cork-steps span.done{background:#e8f7ed;color:#267858}.cork-steps span.current{background:#ede7ff;color:#684fbe;border-color:#d9d0fc;font-weight:750}
+.cork-section{padding:27px 0 42px}
+.cork-section-head{margin-bottom:20px}
+.cork-section-head h2{font-size:1.6rem;margin:6px 0 8px}
+.cork-products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.cork-product-card{background:#fff;border:1px solid #e7e9f2;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.cork-product-card:hover{transform:translateY(-5px);box-shadow:0 20px 35px #28365e21}
+.cork-photo-wrap{position:relative;background:linear-gradient(145deg,#f6f7fd,#e9eefb);height:170px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cork-photo-wrap img{opacity:0;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#f5f6fc;padding:9px;transition:transform .35s}
+.cork-product-card:hover .cork-photo-wrap img{transform:scale(1.06)}
+.cork-photo-fallback{font-size:3.5rem;color:#7861cc;display:grid;place-items:center;width:100%;height:100%;position:absolute;inset:0;background:radial-gradient(circle at 48% 48%,#e3dcff,#f4f5fe 72%)}
+.cork-product-body{padding:19px}
+.cork-product-body h3{min-height:26px;margin-bottom:7px;font-size:1.03rem}
+.cork-product-price{margin:14px 0;padding:11px 0;border-top:1px solid #ebedf5;display:grid;gap:6px}
+.cork-product-price>div{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:.78rem}
+.cork-product-price>div span{color:#79859d}.cork-product-price>div b{color:#2c3357}
+.cork-product-card .btn{width:100%;font-size:.86rem}
+.cork-photo-caption{font-size:.73rem;margin:14px 0}
+.cork-detail-photo{height:200px;background:#f5f6fe;border-radius:16px;margin:18px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cork-detail-photo img{height:100%;max-width:100%;object-fit:contain}
+.cork-verification-card,.cork-entry-panel{padding:34px;border-radius:20px;border:1px solid #e9eafa;background:white;box-shadow:var(--shadow);display:flex;align-items:center;gap:26px;max-width:960px;margin:15px auto 35px}
+.cork-verify-icon,.cork-step-index{width:88px;height:88px;flex-shrink:0;border-radius:20px;display:grid;place-items:center;background:#ece7ff;color:#745bd4;font-size:2.1rem;font-weight:850}
+.cork-verification-card p{max-width:610px}
+.cork-welcome-hero{margin:45px 0 14px;display:grid;grid-template-columns:1fr .85fr;align-items:center;min-height:360px;padding:54px}
+.cork-welcome-hero h1{color:white;font-size:clamp(2.6rem,4.5vw,4rem);margin:18px 0}
+.cork-welcome-art{height:250px;position:relative;display:flex;align-items:center;justify-content:center}
+.cork-orb{width:180px;height:180px;border-radius:50%;display:grid;place-items:center;background:#ffffff1e;border:2px solid #ffffff50;color:#fff;font-size:3.7rem;font-weight:900;box-shadow:0 0 0 24px #ffffff0b}
+.cork-welcome-art>span{position:absolute;padding:8px 11px;background:#ffffff18;border:1px solid #ffffff29;border-radius:20px;font-size:.62rem;font-weight:800;letter-spacing:.07em;color:#fff;backdrop-filter:blur(5px)}
+.cork-welcome-art>span:nth-of-type(1){left:0;top:28px}.cork-welcome-art>span:nth-of-type(2){right:0;top:60px}.cork-welcome-art>span:nth-of-type(3){bottom:15px;left:17%}
+.cork-process-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.cork-process-card{background:#fff;border:1px solid #e9eafa;border-radius:15px;padding:20px;display:flex;flex-direction:column;gap:8px;min-height:157px;box-shadow:var(--shadow)}
+.cork-process-card span{width:35px;height:35px;border-radius:11px;background:#eee8ff;color:#6952c2;font-weight:900;display:grid;place-items:center}
+.cork-process-card strong{font-size:.92rem;color:#26344f}.cork-process-card small{font-size:.76rem;color:#8691a6}
+.cork-registration{max-width:970px}
+.cork-qr-card{display:grid;grid-template-columns:1fr 360px;gap:36px;align-items:center}
+.cork-qr-print{text-align:center;background:#f7f6fc;padding:25px;border-radius:18px;border:1px solid #e5e5ef}
+.cork-qr-print img{width:290px;max-width:100%;border:9px solid #fff;border-radius:12px}
+.cork-qr-print h3{margin:8px 0}.cork-url{word-break:break-all;font-size:.75rem}
+.student-secondary{display:block;font-size:.72rem;color:#929db0}
+@media(max-width:1100px){.cork-products{grid-template-columns:repeat(2,minmax(0,1fr))}.cork-process-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.cork-qr-card{grid-template-columns:1fr}.student-sidebar{width:185px}.public-main.student-workspace{margin-left:185px}}
+@media(max-width:760px){.student-sidebar{position:static;width:auto;padding:8px 16px;display:flex;gap:8px;background:#1a294b;box-shadow:none;overflow-x:auto}.student-sidebar-title,.student-sidebar-bottom,.student-sidebar::after{display:none}.student-nav-link{white-space:nowrap;padding:8px 10px;margin:0}.public-main.student-workspace{margin:0;padding:0 5% 40px}.cork-products{grid-template-columns:repeat(2,minmax(0,1fr))}.cork-process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cork-welcome-hero{grid-template-columns:1fr;padding:28px;margin-top:26px}.cork-welcome-art{display:none}.cork-student-hero{padding:25px}.cork-hero-label{display:none}.cork-verification-card,.cork-entry-panel{flex-direction:column;align-items:flex-start}.cork-qr-card{grid-template-columns:1fr}.login-layout{grid-template-columns:1fr}.login-visual{min-height:410px}.login-panel{padding:30px}}
+@media(max-width:490px){.cork-products{grid-template-columns:1fr}.cork-process-grid{grid-template-columns:1fr 1fr}.cork-process-card{padding:14px}.login-visual{min-height:380px;padding:27px}.login-visual h1{font-size:2.25rem}.cork-student-hero h1{font-size:1.6rem}.public-header{height:70px;padding:0 14px}.student-sidebar{margin-top:0}.tagline{display:none}}
+@media print{.sidebar,.topbar,.public-header,.student-sidebar,.footer,.cork-qr-print button{display:none!important}.operator-main,.main-body{margin:0!important;padding:0!important}.cork-qr-card{display:block}.cork-qr-card>div:first-child{display:none}.cork-qr-print{border:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

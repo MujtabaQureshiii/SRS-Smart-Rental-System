@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block heading %}Admin Dashboard{% endblock %}
+{% block content %}
+<section class="dashboard-intro rise">
+  <span class="eyebrow">OPERATIONS OVERVIEW</span>
+  <h2>Welcome to Smart Rental System <span style="color:#c28b25">(SRS)</span></h2>
+  <p>Manage rentals, inventory, payments, and station operations in one place.</p>
+</section>
+<section class="stat-grid" aria-label="SRS operating statistics">
+  <div class="stat-card"><span aria-hidden="true">⬡</span><small>Total Inventory</small><strong class="count" data-value="{{ stats.inventory }}">{{ stats.inventory }}</strong></div>
+  <div class="stat-card"><span aria-hidden="true">✓</span><small>Available Items</small><strong class="count" data-value="{{ stats.available }}">{{ stats.available }}</strong></div>
+  <div class="stat-card"><span aria-hidden="true">↔</span><small>Active Rentals</small><strong class="count" data-value="{{ stats.active }}">{{ stats.active }}</strong></div>
+  <div class="stat-card"><span aria-hidden="true">!</span><small>Overdue Rentals</small><strong class="count" data-value="{{ stats.overdue }}">{{ stats.overdue }}</strong></div>
+  <div class="stat-card"><span aria-hidden="true">▣</span><small>Verified Receipts</small><strong>{{ stats.collected|money }}</strong></div>
+</section>
+<section class="analytics-row" aria-label="Existing rental and inventory record charts">
+  <div class="white-card chart-card">
+    <div class="card-head"><div><h2>Rental Activity</h2><p class="chart-subtitle">Rental requests received over the last 7 days</p></div><span class="pill">Last 7 days</span></div>
+    <svg class="activity-chart" viewBox="0 0 640 165" role="img" aria-label="Seven-day rental requests, {{ chart_total }} total">
+      <defs><linearGradient id="srs-chart-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3ba40" stop-opacity=".29"/><stop offset="1" stop-color="#f3ba40" stop-opacity=".02"/></linearGradient></defs>
+      <path class="grid-line" d="M20 20 H620 M20 62 H620 M20 105 H620 M20 147 H620"/>
+      <polygon class="chart-area" points="20,147 {{ chart_points }} 620,147"/>
+      <polyline class="chart-line" points="{{ chart_points }}"/>
+      {% for dot in chart_dots %}<circle class="chart-dot" cx="{{ dot.x }}" cy="{{ dot.y }}" r="4.5"><title>{{ dot.value }} request{{ '' if dot.value==1 else 's' }}</title></circle>{% endfor %}
+    </svg>
+    <div class="chart-labels">{% for label in chart_labels %}<span>{{ label }}</span>{% endfor %}</div>
+    <p class="chart-empty">{{ chart_total }} rental request{{ '' if chart_total==1 else 's' }} in this period · actual database records</p>
+  </div>
+  <div class="white-card chart-card">
+    <div class="card-head"><div><h2>Inventory Status</h2><p class="chart-subtitle">Physical assets at the SRS station</p></div></div>
+    <div class="inventory-chart-content">
+      <div class="donut-chart" style="background:{{ asset_view.donut_style }}" role="img" aria-label="{{ stats.available }} available, {{ asset_view.rented }} rented, {{ asset_view.not_ready }} needing attention">
+        <div class="donut-center"><strong>{{ stats.inventory }}</strong><small>Total Items</small></div>
+      </div>
+      <ul class="inventory-legend">
+        <li><span class="legend-swatch"></span>Available <b>{{ stats.available }}</b></li>
+        <li><span class="legend-swatch gold"></span>Rented <b>{{ asset_view.rented }}</b></li>
+        <li><span class="legend-swatch gray"></span>Not ready <b>{{ asset_view.not_ready }}</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="dashboard-two">
+  <div class="white-card">
+    <div class="card-head"><h2>Recent Rentals</h2><a href="/operator/rentals">View all →</a></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Rental</th><th>Student</th><th>Item</th><th>Status</th></tr></thead>
+      <tbody>{% for r in rentals %}<tr><td><a href="/operator/rentals/{{ r.id }}">#{{ r.id }}</a></td><td>{{ r.student.name }}</td><td>{{ r.category.name }}</td><td><span class="status status-{{ r.status }}">{{ r.status }}</span></td></tr>{% else %}<tr><td colspan="4">No rental records yet.</td></tr>{% endfor %}</tbody>
+    </table></div>
+  </div>
+  <div class="side-stack">
+    <div class="white-card">
+      <h2>Quick Actions</h2>
+      <div class="quick-links"><a href="/operator/rentals?status=pending">Review pending requests →</a><a href="/operator/reminders">Check due reminders →</a><a href="/operator/inventory">Review inventory →</a><a href="/operator/checks">Record daily check →</a></div>
+    </div>
+    <div class="white-card">
+      <h2>Station Overview</h2>
+      <div class="summary-line"><span>Registered students</span><b>{{ stats.students }}</b></div>
+      <div class="summary-line"><span>Pending rental requests</span><b>{{ stats.pending }}</b></div>
+      <div class="summary-line"><span>Completed rentals</span><b>{{ stats.completed }}</b></div>
+      <div class="summary-line"><span>Refundable deposits held</span><b>{{ stats.held|money }}</b></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
